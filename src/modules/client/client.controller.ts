@@ -13,7 +13,7 @@ import {
 import { ClientService } from './client.service';
 import { FastifyReply, FastifyRequest } from 'fastify';
 
-@Controller('')
+@Controller('acbsjcajskcnakcsjasjdkfhaskjhfkjsadhfkajshdkj')
 export class ClientController {
   constructor(private readonly clientService: ClientService) {}
 
