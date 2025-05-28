@@ -1,0 +1,15 @@
+<div class="container fixed-top nav-fix">
+  <div class="row">
+    <div class="col-12">
+      <nav class="nav">
+        <% result?.categories?.docs?.forEach((category, index) => { %>
+        <% if (result?.catIdCurrent && result?.catIdCurrent == category?._id) { %>
+        <a class="nav-link active" id="<%= category?._id %>" href="/cat_id/<%= category?._id %>"><%= category?.name %></a>
+        <% } else { %>
+        <a class="nav-link" id="<%= category?._id %>" href="/cat_id/<%= category?._id %>"><%= category?.name %></a>
+        <% } %>
+        <% }) %>
+      </nav>
+    </div>
+  </div>
+</div>

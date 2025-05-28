@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('./../partial/head') %>
+
+<body>
+  <%- include('./../partial/header') %>
+  <main>
+    <div class="d-flex">
+      <div class="row mx-0">
+        <%- include('./../partial/nav', { navLinkActive: 'Products' }) %>
+        <!-- CONTENT -->
+        <div class="fix-content">
+          <div class="mx-5">
+            <div class="row">
+              <div class="col">
+                <nav aria-label="breadcrumb">
+                  <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="/admin/dashboard">Dashboard</a></li>
+                    <li class="breadcrumb-item"><a href="/admin/products">Quản lý sản phẩm</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">
+                      Chi tiết sản phẩm / <%= product.doc.name %>
+                    </li>
+                  </ol>
+                </nav>
+                <h3>Chi tiết sản phẩm: <%= product.doc.name %></h3>
+                <a class="mt-2 btn btn-primary" href="/admin/products" role="button">Danh sách</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="mx-5 mt-3">
+            <form method="post" enctype="multipart/form-data" class="row">
+              <div class="col-6">
+                <div class="form-group">
+                  <label class="form-label" for="name">Tên sản phẩm</label>
+                  <input type="text" class="form-control" id="name" name="name" value="<%= product.doc.name %>" placeholder="Nhập tên sản phẩm" required />
+                </div>
+
+                <br />
+                <label class="form-label" for="category_id">Tên danh mục</label>
+                <select class="form-control" name="category_id" id="category_id">
+                  <% categories.docs.forEach(cat => { %>
+                  <option value="<%= cat._id %>" <%= (cat._id.toString() === product.doc.category_id._id.toString()) ? 'selected' : '' %>><%= cat.name %></option>
+                  <% }); %>
+                </select>
+
+                <br />
+                <div class="form-group">
+                  <label class="form-label" for="price_origin">Giá sản phẩm</label>
+                  <input type="number" class="form-control" id="price_origin" name="price_origin" value="<%= product.doc.price_origin %>" placeholder="Nhập giá sản phẩm" required />
+                </div>
+
+                <br />
+                <div class="form-group">
+                  <label class="form-label" for="promotion">Ưu đãi</label>
+                  <input type="text" class="form-control" id="promotion" name="promotion" value="<%= product.doc.promotion %>" placeholder="Nhập ưu đãi" required />
+                </div>
+
+                <br />
+                <label class="form-label" for="ckediter">Mô tả sản phẩm</label>
+                <textarea class="form-control" name="description" id="ckediter" rows="12"><%= product.doc.description %></textarea>
+              </div>
+
+              <div class="col-6">
+                <div class="form-group">
+                  <label class="form-label" for="image_input">Ảnh sản phẩm</label>
+                  <input type="file" class="form-control" id="image_input" name="image" />
+                  <% if (product.doc.image) { %>
+                  <img class="mt-2" src="/static/img/products/<%= product.doc.image %>" id="image_preview" alt="<%= product.doc.image %>" height="180px" />
+                  <% } %>
+                </div>
+
+                <br />
+                <div class="form-group">
+                  <label class="form-label" for="discount_percent">Phần trăm giảm giá</label>
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text">%</span>
+                    </div>
+                    <input type="number" class="form-control" id="discount_percent" name="discount_percent" value="<%= product.doc.discount_percent || '' %>" placeholder="Phần trăm giảm giá" />
+                  </div>
+                </div>
+
+                <br />
+                <label class="form-label" for="is_feature">Nổi bật</label>
+                <select class="form-control" id="is_feature" name="is_feature">
+                  <option value="true" <%= product.doc.is_feature ? 'selected' : '' %>>Có</option>
+                  <option value="false" <%= !product.doc.is_feature ? 'selected' : '' %>>Không</option>
+                </select>
+
+                <br />
+                <label class="form-label" for="is_stock">Còn hàng</label>
+                <select class="form-control" id="is_stock" name="is_stock">
+                  <option value="true" <%= product.doc.is_stock ? 'selected' : '' %>>Có</option>
+                  <option value="false" <%= !product.doc.is_stock ? 'selected' : '' %>>Không</option>
+                </select>
+                <br />
+              </div>
+
+              <button type="submit" class="fix-btn-submit my-2 mb-5 btn btn-warning w-auto">Sửa sản phẩm</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+  <%- include('./../partial/footer') %>
+</body>
+
+</html>

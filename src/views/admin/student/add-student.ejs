@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('./../partial/head') %>
+
+<body>
+  <%- include('./../partial/header') %>
+  <main>
+    <div class="d-flex">
+      <div class="row mx-0">
+        <%- include('./../partial/nav', { navLinkActive: 'Students' }) %>
+        <!-- CONTENT -->
+        <div class="fix-content">
+          <div class="mx-5">
+            <div class="row">
+              <div class="col">
+                <nav aria-label="breadcrumb">
+                  <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="/admin/dashboard">Dashboard</a></li>
+                    <li class="breadcrumb-item"><a href="/admin/students">Quản lý sinh viên</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Thêm mới</li>
+                  </ol>
+                </nav>
+                <h3>Thêm mới sinh viên</h3>
+                <a class="mt-2 btn btn-primary" href="/admin/students" role="button">Danh sách</a>
+              </div>
+            </div>
+          </div>
+          <!-- alert -->
+          <div class=" mt-3 fix-mr">
+            <div class="row">
+              <% if (student && student.error) { %>
+              <div class='p-2 alert alert-danger col-6'><%= student.error %></div>
+              <% } %>
+            </div>
+          </div>
+          <!-- alert -->
+          <div class="mx-5 mt-3">
+            <form method="post" class="row">
+              <div class="col-6">
+                <div class="form-group">
+                  <label class="form-label" for="full_name">Mã sinh viên</label>
+                  <input type="text" class="form-control" id="full_name" name="maSV" placeholder="Nhập mã sinh viên" required />
+                </div>
+                <br />
+                <div class="form-group">
+                  <label class="form-label" for="full_name">Tên sinh viên</label>
+                  <input type="text" class="form-control" id="full_name" name="hoTen" placeholder="Nhập tên sinh viên" required />
+                </div>
+                <br />
+                <div class="form-group">
+                  <label class="form-label" for="email">Email sinh viên</label>
+                  <input type="email" class="form-control" id="email" name="email" placeholder="Nhập email sinh viên" required />
+                </div>
+                <br />
+                <div class="form-group">
+                  <label class="form-label" for="password">Mật khẩu</label>
+                  <input type="password" class="form-control" id="password" name="password" placeholder="Nhập mật khẩu" required />
+                </div>
+              </div>
+              <div class="col-6">
+                <div class="form-group">
+                  <label class="form-label" for="address">Địa chỉ</label>
+                  <input type="text" class="form-control" id="address" name="diaChi" placeholder="Nhập địa chỉ" required />
+                </div>
+                <br />
+                <label class="form-label" for="active">Lớp học</label>
+                <select class="form-control" id="active" name="maLop">
+                  <% classes.docs.forEach(classItem => { %>
+                  <option value="<%= classItem._id %>"><%= classItem.tenLop %></option>
+                  <% }); %>
+                </select>
+                <br />
+                <div class="form-group">
+                  <label class="form-label" for="phone_number">Số điện thoại</label>
+                  <input type="number" class="form-control" id="phone_number" name="soDienThoai" placeholder="Nhập số điện thoại" required />
+                </div>
+              </div>
+              <button type="submit" class="fix-btn-submit my-2 mb-5 btn btn-success w-auto">
+                Thêm mới sinh viên
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+  <%- include('./../partial/footer') %>
+</body>
+
+</html>

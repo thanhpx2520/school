@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('./../partial/head') %>
+
+<body>
+  <%- include('./../partial/header') %>
+  <main>
+    <div class="d-flex">
+      <div class="row mx-0">
+        <%- include('./../partial/nav', { navLinkActive: 'Comments' }) %>
+        <!-- CONTENT -->
+        <div class="fix-content">
+          <div class="mx-5">
+            <div class="row">
+              <div class="col">
+                <nav aria-label="breadcrumb">
+                  <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="/admin/dashboard">Dashboard</a></li>
+                    <li class="breadcrumb-item"><a href="/admin/comments">Quản lý bình luận</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">
+                      Chi tiết bình luận / <%= comment.doc.product_id.name %>
+                    </li>
+                  </ol>
+                </nav>
+                <h3>Chi tiết bình luận: <%= comment.doc.product_id.name %></h3>
+                <a class="mt-2 btn btn-primary" href="#" role="button">Danh sách</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="mx-5 mt-3">
+            <form method="post" class="row">
+              <div class="col-6">
+                <div class="form-group">
+                  <label class="form-label">Tên sản phẩm</label>
+                  <input type="text" class="form-control" value="<%= comment.doc.product_id.name %>" disabled readonly />
+                </div>
+                <br />
+                <div class="form-group">
+                  <label class="form-label">Ảnh sản phẩm</label>
+                  <input type="text" class="form-control" value="<%= comment.doc.product_id.image %>" disabled readonly />
+                  <img class="mt-2" src="/static/img/products/<%= comment.doc.product_id.image %>" alt="Ảnh sản phẩm" height="400px" />
+                </div>
+              </div>
+
+              <div class="col-6">
+                <div class="form-group">
+                  <label class="form-label">Tên người dùng</label>
+                  <input type="text" class="form-control" value="<%= comment.doc.user_id.full_name %>" disabled readonly />
+                </div>
+                <br />
+                <div class="form-group">
+                  <label class="form-label">Email người dùng</label>
+                  <input type="text" class="form-control" value="<%= comment.doc.user_id.email %>" disabled readonly />
+                </div>
+                <br />
+                <label class="form-label" for="ckediter">Nội dung bình luận</label>
+                <textarea class="form-control" id="ckediter" name="content" rows="12"><%= comment.doc.content %></textarea>
+              </div>
+
+              <button type="submit" class="fix-btn-submit my-2 mb-5 btn btn-warning w-auto">Sửa bình luận</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+  <%- include('./../partial/footer') %>
+</body>
+
+</html>

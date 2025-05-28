@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('./../partial/head') %>
+
+<body>
+  <%- include('./../partial/header') %>
+  <main>
+    <div class="d-flex">
+      <div class="row mx-0">
+        <%- include('./../partial/nav', { navLinkActive: 'Classes' }) %>
+        <!-- CONTENT -->
+        <div class="fix-content">
+          <div class="mx-5">
+            <div class="row">
+              <div class="col">
+                <nav aria-label="breadcrumb">
+                  <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="/admin/dashboard">Dashboard</a></li>
+                    <li class="breadcrumb-item"><a href="/admin/categories">Quản lý lớp học</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Thêm mới</li>
+                  </ol>
+                </nav>
+                <h3>Thêm mới lớp học</h3>
+                <a class="mt-2 btn btn-primary" href="/admin/categories" role="button">Danh sách</a>
+              </div>
+            </div>
+          </div>
+          <!-- alert -->
+          <div class=" mt-3 fix-mr">
+            <div class="row">
+              <% if (classItem && classItem.error) { %>
+              <div class='p-2 alert alert-danger col-6'><%= classItem.error %></div>
+              <% } %>
+            </div>
+          </div>
+          <!-- alert -->
+          <div class="mx-5 mt-3">
+            <form method="post" class="row">
+              <div class="col-6">
+                <div class="form-group">
+                  <label for="name">Tên lớp học</label>
+                  <input type="name" id="name" name="tenLop" class="form-control" placeholder="Nhập tên lớp học" required />
+                </div>
+              <div class="col-6"></div>
+              <button type="submit" class=" mt-2 btn btn-success w-auto">Thêm mới lớp học</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+  <%- include('./../partial/footer') %>
+</body>
+
+</html>

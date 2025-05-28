@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include('./partial/head') %>
+  <body>
+    <%- include('./partial/header') %> 
+    <main>
+      <div class="d-flex">
+        <div class="row mx-0">
+          <%- include('./partial/nav', { navLinkActive: 'Dashboard' }) %>
+          <!-- CONTENT -->
+          <div class="fix-content"></div>
+        </div>
+      </div>
+    </main>
+    <%- include('./partial/footer') %>
+  </body>
+</html>

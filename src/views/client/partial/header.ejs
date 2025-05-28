@@ -1,0 +1,74 @@
+<header id="header">
+  <div class="container fixed-top header-fix">
+    <div class="row align-content-center justify-content-center">
+      <div class="col-3">
+        <a
+          href="/home"
+          class="d-flex align-items-center text-decoration-none text-black"
+          ><img src="/static/img/logo.png" id="logo" alt="" />
+          <h6 class="mx-2 p-0 m-0">Fashion Store</h6>
+        </a>
+      </div>
+      <div class="col-5 header-search">
+        <form class="d-flex" method="get" action="/search">
+          <input
+            name="keyword"
+            class="form-control fix-color-outline1 me-2"
+            type="search"
+            placeholder="Search"
+            aria-label="Search"
+            value="<%= result?.query?.keyword %>"
+          />
+          <button
+            class="btn btn-outline-primary fix-color-outline1 fix-color1"
+            type="submit"
+          >
+            Search
+          </button>
+        </form>
+      </div>
+      <div class="col-4 d-flex align-items-center justify-content-end">
+        <!-- Hiển thị khi có guest -->
+        <div id="guest-info" class="d-none">
+          <div class="d-flex">
+            <p class="m-0 pt-1 me-2" id="guest-email-display"></p>
+            <button type="button" class="btn btn-primary fix-color1">
+              <a href="/logout" class="fix1">Đăng xuất</a>
+            </button>
+          </div>
+        </div>
+
+        <!-- Hiển thị khi chưa đăng nhập -->
+        <div id="auth-buttons">
+          <button type="button" class="btn btn-primary fix-color1 mx-2">
+            <a href="/register" class="fix1">Đăng ký</a>
+          </button>
+          <button type="button" class="btn btn-primary fix-color1">
+            <a href="/login" class="fix1">Đăng nhập</a>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<script>
+  function getCookie(name) {
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; ${name}=`);
+    if (parts.length === 2) return parts.pop().split(';').shift();
+  }
+
+  document.addEventListener('DOMContentLoaded', function () {
+    const guestEmail = getCookie('guest-email');
+    const guestInfo = document.getElementById('guest-info');
+    const authButtons = document.getElementById('auth-buttons');
+    const guestEmailDisplay = document.getElementById('guest-email-display');
+
+    if (guestEmail) {
+      guestEmailDisplay.textContent = `Chào, ${decodeURIComponent(guestEmail)}`;
+      guestInfo.classList.remove('d-none');
+      authButtons.classList.add('d-none');
+    }
+  });
+</script>

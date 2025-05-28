@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('./../partial/head') %>
+
+<body>
+  <%- include('./../partial/header') %>
+  <main>
+    <div class="d-flex">
+      <div class="row mx-0">
+        <%- include('./../partial/nav', { navLinkActive: 'Categories' }) %>
+        <!-- CONTENT -->
+        <div class="fix-content">
+          <div class="mx-5">
+            <div class="row">
+              <div class="col">
+                <nav aria-label="breadcrumb">
+                  <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="/admin/dashboard">Dashboard</a></li>
+                    <li class="breadcrumb-item"><a href="/admin/categories">Quản lý danh mục</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Chi tiết danh mục / <%= category.doc.name %></li>
+                  </ol>
+                </nav>
+                <h3>Chi tiết danh mục: <%= category.doc.name %></h3>
+                <a class="mt-2 btn btn-primary" href="/admin/categories" role="button">Danh sách</a>
+              </div>
+            </div>
+          </div>
+          <!-- alert -->
+          <div class=" mt-3 fix-mr">
+            <div class="row">
+              <% if (categoryAlert && categoryAlert.error) { %>
+              <div class='p-2 alert alert-danger col-6'><%= categoryAlert.error %></div>
+              <% } %>
+            </div>
+          </div>
+          <!-- alert -->
+          <div class="mx-5 mt-3">
+            <form method="post" class="row">
+              <div class="col-6">
+                <div class="form-group">
+                  <label for="categoryName">Tên danh mục</label>
+                  <input type="text" class="form-control" id="categoryName" name="name" value="<%= category.doc.name %>" placeholder="Nhập tên danh mục" required />
+                </div>
+                <br />
+                <label for="categoryPublic">Public</label>
+                <select class="form-control" id="categoryPublic" name="active">
+                  <option value="1" <%= category.doc.active ? 'selected' : '' %>>True</option>
+                  <option value="0" <%= !category.doc.active ? 'selected' : '' %>>False</option>
+                </select>
+              </div>
+              <div class="col-6"></div>
+              <button type="submit" class="fix-btn-submit mt-2 btn btn-warning w-auto">Sửa danh mục</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+  <%- include('./../partial/footer') %>
+</body>
+
+</html>

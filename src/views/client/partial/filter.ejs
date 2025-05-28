@@ -1,0 +1,44 @@
+      <% const filters=Array.isArray(result.query.filters) ? result.query.filters : result.query.filters ?
+                [result.query.filters] : []; %>
+      <div class="container fix-sort">
+        <div class="row">
+          <div class="col-12 mt-2 mb-2">
+            <form class="form-inline d-flex align-items-center justify-content-end">
+              <h6 class="d-inline m-0 mx-2">Lọc theo:</h6>
+
+              <% if (result.query.keyword) { %>
+              <input type="hidden" name="keyword" value="<%= result.query.keyword %>" />
+              <% } %>
+
+              <!-- Checkbox -->
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" id="checkboxNew" name="filters" value="new" <%=filters.includes('new') ? 'checked' : '' %> />
+                <label class="form-check-label" for="checkboxNew">Mới</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" id="checkboxFeatured" name="filters" value="featured" <%=filters.includes('featured') ? 'checked' : '' %> />
+                <label class="form-check-label" for="checkboxFeatured">Nổi bật</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" id="checkboxDiscount" name="filters" value="discount" <%=filters.includes('discount') ? 'checked' : '' %> />
+                <label class="form-check-label" for="checkboxDiscount">Giảm giá</label>
+              </div>
+
+              <!-- Separator -->
+              <span class="me-3">||</span>
+
+              <!-- Radio -->
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="priceSort" id="radioPriceDesc" value="price_desc" <%=result.query.priceSort==='price_desc' ? 'checked' : '' %> />
+                <label class="form-check-label" for="radioPriceDesc">Giá cao nhất</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="priceSort" id="radioPriceAsc" value="price_asc" <%=result.query.priceSort==='price_asc' ? 'checked' : '' %> />
+                <label class="form-check-label" for="radioPriceAsc">Giá thấp nhất</label>
+              </div>
+
+              <button type="submit" class="btn btn-primary fix-color1">Lọc</button>
+            </form>
+          </div>
+        </div>
+      </div>

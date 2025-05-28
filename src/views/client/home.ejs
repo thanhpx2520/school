@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('./partial/head') %>
+
+<body>
+  <div id="app">
+    <%- include('./partial/header') %>
+    <%- include('./partial/nav') %>
+    <%- include('./partial/slider') %>
+
+    <main id="main">
+
+      <%- include('./partial/filter') %>
+
+      <div class="container mb-2">
+        <div class="row row-cols-4 g-4">
+          <% if (result && result.products && result.products.docs) {
+                      result.products.docs.forEach(function(product) { const hasDiscount=product.discount_percent
+                      !==null && product.discount_percent> 0;
+                      const discountedPrice = hasDiscount ? product.price_origin - (product.price_origin *
+                      product.discount_percent / 100) : null;
+                      %>
+          <h1 class="col">
+            <a href="/prd_id/<%= product._id %>">
+              <div class="card">
+                <img class="card-img-top" src="/static/img/products/<%= product.image %>" alt="Card image cap" />
+                <div class="card-body">
+                  <h5 class="card-title">
+                    <%= product.name %>
+                  </h5>
+                  <div class="card-text">
+                    <% if (hasDiscount) { %>
+                    <div class="item-sale">
+                      <%= product.discount_percent %>%
+                    </div>
+                    <span class="fix-text-color1">
+                      <%= discountedPrice.toLocaleString('vi-VN') %> VNĐ
+                    </span>
+                    <span class="price-origin">
+                      <%= product.price_origin.toLocaleString('vi-VN') %> VNĐ
+                    </span>
+                    <% } else { %>
+                    <span class="fix-text-color1">
+                      <%= product.price_origin.toLocaleString('vi-VN') %> VNĐ
+                    </span>
+                    <% } %>
+                  </div>
+                  <a href="#" class="btn btn-primary fix-color1">Mua ngay</a>
+                </div>
+              </div>
+            </a>
+          </h1>
+          <% }); } %>
+        </div>
+      </div>
+
+      <%- include('./partial/pagination') %>
+
+    </main>
+
+    <%- include('./partial/footer') %>
+  </div>
+</body>
+
+</html>

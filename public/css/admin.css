@@ -1,0 +1,90 @@
+.wrapper-admin-auth {
+  display: flex;
+  height: 100vh;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+}
+
+#form-login {
+  width: 500px;
+  padding: 64px 32px;
+  border-radius: 20px;
+  border: 1px solid #0d6efd;
+}
+
+#logo {
+  width: 100px;
+}
+
+#header {
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  position: fixed;
+  background-color: #fff;
+  top: 0px;
+  left: 0;
+  right: 0;
+  z-index: 9999;
+}
+
+#nav {
+  position: fixed;
+  top: 78px;
+  left: 0;
+  bottom: 0;
+  width: 300px;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+
+.text-h {
+  height: 10000px;
+}
+
+#footer {
+  height: 24px;
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  left: 300px;
+  z-index: 9000;
+}
+
+.nav-link {
+  padding-right: 24px;
+  padding-left: 24px;
+}
+
+.nav-link:hover {
+  background-color: #0d6efd;
+  color: #fff;
+}
+
+.fix-content {
+  margin-top: 90px;
+  margin-left: 300px;
+  width: calc(100vw - 316px);
+}
+
+th,
+td {
+  /* display: flex; */
+  align-items: center;
+  vertical-align: middle;
+}
+
+.fw-td {
+  width: 230px;
+}
+
+.fix-btn-submit {
+  margin-left: 12px;
+}
+
+.fix-w-product {
+  width: 300px;
+}
+
+.fix-mr {
+  margin-right: 84px;
+  margin-left: 60px;
+}

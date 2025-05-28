@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('./partial/head') %>
+
+<body>
+  <div id="app">
+    <%- include('./partial/header') %> <%- include('./partial/nav') %>
+
+    <main id="main">
+      <div class="fix-mar1">
+        <div class="container">
+          <div class="row">
+            <div class="col-12">
+              <div>
+                <nav aria-label="breadcrumb" class="mt-2">
+                  <ol class="breadcrumb">
+                    <li class="me-1">
+                      <a href="/home" class="fix-text-color1">Trang chủ /</a>
+                    </li>
+                    <li class="me-1">
+                      <a href="/cat_id/<%= result?.doc?.doc?.product1?.category_id?._id %>" class="fix-text-color1"><%= result?.doc?.doc?.product1?.category_id?.name %>
+                        /</a>
+                    </li>
+                    <li class="me-1 fix-text-color2" aria-current="page">
+                      <%= result?.doc?.doc?.product1?.name %>
+                    </li>
+                  </ol>
+                </nav>
+              </div>
+            </div>
+          </div>
+          <div class="row mb-4">
+            <div class="col-7">
+              <img class="product-img" src="/static/img/products/<%= result?.doc?.doc?.product1?.image %>" alt="" />
+            </div>
+            <div class="col-5">
+              <div class="wrapper-product">
+                <h2>Thông tin sản phẩm</h2>
+                <% const product = result?.doc?.doc?.product1; %>
+                <ul class="product">
+                  <li>
+                    Tên sản phẩm:
+                    <span><%= product?.name %></span>
+                  </li>
+                  <li>
+                    Danh mục:
+                    <span><%= product?.category_id?.name %></span>
+                  </li>
+                  <li>
+                    Trạng thái:
+                    <% if (product?.is_stock) { %>
+                    <span class="stock-true">Còn hàng</span>
+                    <% } else { %>
+                    <span class="stock-false">Hết hàng</span>
+                    <% } %>
+                  </li>
+                  <li>
+                    Ưu đãi:
+                    <span><%= product?.promotion %></span>
+                  </li>
+                  <% if (product?.discount_percent) { %>
+                  <li>
+                    Giá gốc:
+                    <span class="text-decoration-line-through"><%= product?.price_origin.toLocaleString('vi-VN') %>
+                      VNĐ</span>
+                  </li>
+                  <li>
+                    Giảm:
+                    <span><%= product?.discount_percent %> %</span>
+                  </li>
+                  <li>
+                    Giá sau giảm:
+                    <span class="product-price"><% if (product?.discount_percent) { %>
+                      <%= (product.price_origin * (1 - product.discount_percent / 100)).toLocaleString('vi-VN') %> VNĐ
+                      <% } else { %>
+                      <%= product?.price_origin?.toLocaleString('vi-VN') %> VNĐ
+                      <% } %></span>
+                  </li>
+                  <% } else { %>
+                  <li>
+                    Giá gốc:
+                    <span class="product-price"><%= product?.price_origin.toLocaleString('vi-VN') %> VNĐ</span>
+                  </li>
+                  <% } %>
+                  <li>
+                    Mô tả sản phẩm:
+                    <span><%- product?.description %></span>
+                  </li>
+                </ul>
+                <button type="button" class="btn btn-primary fix-color1">
+                  Mua ngay
+                </button>
+                <button type="button" class="btn btn-primary fix-color1">
+                  Thêm vào giỏ
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="row d-flex justify-content-around">
+
+            <h2>Sản phẩm liên quan</h2>
+            <div class="row row-cols-4 g-4 fix-mar3">
+              <% result?.doc?.doc?.related.forEach((item) => { 
+  const priceOrigin = item.price_origin;
+  const discount = item.discount_percent;
+  const finalPrice = discount
+    ? Math.round(priceOrigin * (1 - discount / 100))
+    : priceOrigin;
+%>
+              <h1 class="col">
+                <a href="/prd_id/<%= item._id %>">
+                  <div class="card">
+                    <img class="card-img-top" src="/static/img/products/<%= item.image %>" alt="<%= item.name %>" />
+                    <div class="card-body">
+                      <h5 class="card-title"><%= item.name %></h5>
+                      <div class="card-text">
+                        <span class="fix-text-color1"><%= finalPrice.toLocaleString('vi-VN') %> đ</span>
+                        <% if (discount) { %>
+                        <span class="price-origin"><%= priceOrigin.toLocaleString('vi-VN') %> đ</span>
+                        <div class="item-sale"><%= discount %>%</div>
+                        <% } %>
+                      </div>
+                      <a href="/prd_id/<%= item._id %>" class="btn btn-primary fix-color1">Mua ngay</a>
+                    </div>
+                  </div>
+                </a>
+              </h1>
+              <% }) %>
+            </div>
+          </div>
+          <div class="row my-3 mb-5">
+            <h2 class="mb-4">Bình luận sản phẩm</h2>
+            <div class="col-6">
+              <form action="/prd_id/<%= product?._id %>/comment" method="post" class="wrapper-product">
+                <div class="form-group mb-2">
+                  <label for="comment-email" class="ms-2">Email</label>
+                  <input type="email" class="form-control" id="comment-email" readonly disabled />
+                </div>
+                <div class="form-group mb-2">
+                  <label for="comment-fullname" class="ms-2">Họ và tên</label>
+                  <input type="text" class="form-control" id="comment-fullname" readonly disabled />
+                </div>
+                <div class="form-group mb-2">
+                  <label for="comment-content" class="ms-2">Nội dung bình luận</label>
+                  <textarea class="form-control" id="comment-content" name="content" rows="12" required></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary fix-color1">Bình luận</button>
+              </form>
+            </div>
+            <div class="col-6 comment">
+
+              <% result?.comments?.docs?.forEach((comment) => { %>
+
+              <h6 class="user-name-comment">
+                <%= comment?.user_id?.full_name || "Ẩn danh" %>
+                <span class="text-secondary">
+                  (<%= new Date(comment?.createdAt).toLocaleString('vi-VN') %>)
+                </span>
+              </h6>
+              <div class="content-comment">
+                <%- comment?.content %>
+              </div>
+
+              <% }) %>
+              <div class="comment-pagition">
+                <!-- Phân trang -->
+                <% if (result?.comments?.pages?.totalPages>= 1) {
+                  const { pages } = result.comments;
+                  %>
+                <% const buildQuery=(extraParams={})=> {
+                    const merged = { ...result.query, ...extraParams };
+                    const query = Object.entries(merged)
+                    .filter(([key, val]) => val != null && val !== '')
+                    .map(([key, val]) => {
+                    if (Array.isArray(val)) {
+                    return val.map(v => `${key}=${encodeURIComponent(v)}`).join('&');
+                    }
+                    return `${key}=${encodeURIComponent(val)}`;
+                    })
+                    .join('&');
+                    return '?' + query;
+                    };
+                    %>
+
+                <nav aria-label="Page navigation">
+                  <ul class="pagination">
+                    <% if (pages?.hasPrev) { %>
+                    <li class="page-item">
+                      <a class="page-link" href="<%= buildQuery({ page: pages.prev }) %>">&laquo;</a>
+                    </li>
+                    <% } else { %>
+                    <li class="page-item disabled"><span class="page-link">&laquo;</span></li>
+                    <% } %>
+
+                    <% if (pages.totalPages> 5) { %>
+                    <li class="page-item <%= pages.currentPage === 1 ? 'active' : '' %>">
+                      <a class="page-link" href="<%= buildQuery({ page: 1 }) %>">1</a>
+                    </li>
+
+                    <% if (pages.currentPage> 3) { %>
+                    <li class="page-item disabled"><span class="page-link">...</span></li>
+                    <% } %>
+
+                    <% for (let i=Math.max(2, pages.currentPage - 1); i <=Math.min(pages.totalPages -
+                                        1, pages.currentPage + 1); i++) { %>
+                    <li class="page-item <%= i === pages.currentPage ? 'active' : '' %>">
+                      <a class="page-link" href="<%= buildQuery({ page: i }) %>">
+                        <%= i %>
+                      </a>
+                    </li>
+                    <% } %>
+
+                    <% if (pages.currentPage < pages.totalPages - 2) { %>
+                    <li class="page-item disabled"><span class="page-link">...</span></li>
+                    <% } %>
+
+                    <li class="page-item <%= pages.currentPage === pages.totalPages ? 'active' : '' %>">
+                      <a class="page-link" href="<%= buildQuery({ page: pages.totalPages }) %>">
+                        <%= pages.totalPages %>
+                      </a>
+                    </li>
+                    <% } else { %>
+                    <% for (let i=1; i <=pages.totalPages; i++) { %>
+                    <li class="page-item <%= i === pages.currentPage ? 'active' : '' %>">
+                      <a class="page-link" href="<%= buildQuery({ page: i }) %>">
+                        <%= i %>
+                      </a>
+                    </li>
+                    <% } %>
+                    <% } %>
+
+                    <% if (pages?.hasNext) { %>
+                    <li class="page-item">
+                      <a class="page-link" href="<%= buildQuery({ page: pages.next }) %>">&raquo;</a>
+                    </li>
+                    <% } else { %>
+                    <li class="page-item disabled"><span class="page-link">&raquo;</span></li>
+                    <% } %>
+                  </ul>
+                </nav>
+                <% } %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <%- include('./partial/footer') %>
+  </div>
+  <script>
+    // Hàm lấy cookie theo tên
+    function getCookie(name) {
+      const value = `; ${document.cookie}`;
+      const parts = value.split(`; ${name}=`);
+      if (parts.length === 2) return decodeURIComponent(parts.pop().split(';').shift());
+      return null;
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+      const email = getCookie('guest-email');
+      const fullName = getCookie('guest-full_name');
+
+      if (email) {
+        document.getElementById('comment-email').value = email;
+      }
+
+      if (fullName) {
+        document.getElementById('comment-fullname').value = fullName;
+      }
+    });
+  </script>
+
+</body>
+
+</html>

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('./../partial/head') %>
+
+<body>
+  <%- include('./../partial/header') %>
+  <main>
+    <div class="d-flex">
+      <div class="row mx-0">
+        <%- include('./../partial/nav', { navLinkActive: 'Products' }) %>
+        <!-- CONTENT -->
+        <div class="fix-content">
+          <div class="mx-5">
+            <div class="row">
+              <div class="col">
+                <nav aria-label="breadcrumb">
+                  <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="/admin/dashboard">Dashboard</a></li>
+                    <li class="breadcrumb-item"><a href="/admin/products">Quản lý sản phẩm</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Thêm mới</li>
+                  </ol>
+                </nav>
+                <h3>Thêm mới sản phẩm</h3>
+                <a class="mt-2 btn btn-primary" href="/admin/products" role="button">Danh sách</a>
+              </div>
+            </div>
+          </div>
+          <div class="mx-5 mt-3">
+            <form method="post" enctype="multipart/form-data" class="row">
+              <div class="col-6">
+                <div class="form-group">
+                  <label class="form-label" for="name">Tên sản phẩm</label>
+                  <input type="text" class="form-control" id="name" name="name" placeholder="Nhập tên sản phẩm" required />
+                </div>
+                <br />
+
+                <label class="form-label" for="category_id">Tên danh mục</label>
+                <select class="form-control" id="category_id" name="category_id">
+                  <% categories.docs.forEach(category => { %>
+                  <option value="<%= category._id %>"><%= category.name %></option>
+                  <% }); %>
+                </select>
+                <br />
+                <div class="form-group">
+                  <label class="form-label" for="price_origin">Giá sản phẩm</label>
+                  <input type="number" class="form-control" id="price_origin" name="price_origin" placeholder="Nhập giá sản phẩm" required />
+                </div>
+                <br />
+                <div class="form-group">
+                  <label class="form-label" for="promotion">Ưu đãi</label>
+                  <input type="text" class="form-control" id="promotion" name="promotion" placeholder="Nhập ưu đãi" required />
+                </div>
+                <br />
+                <label for="ckediter" class="form-label">Mô tả sản phẩm</label>
+                <textarea class="form-control" id="ckediter" name="description" rows="5"></textarea>
+              </div>
+              <div class="col-6">
+                <div class="form-group">
+                  <label class="form-label" for="image_input">Ảnh sản phẩm</label>
+                  <input type="file" class="form-control" id="image_input" name="image" value="Áo Len Nam Cổ Lọ Cao 5S Fashion Phom Slimfit ALE24001" placeholder="Chọn ảnh sản phẩm" required />
+                  <img class="mt-2" id="image_preview" alt="" height="180px" style="display: none;" />
+                </div>
+                <br />
+                <div class="form-group">
+                  <label class="form-label" for="discount_percent">Phần trăm giảm giá</label>
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text" id="basic-addon1">%</span>
+                    </div>
+                    <input type="number" id="discount_percent" name="discount_percent" class="form-control" placeholder="Phần trăm giảm giá" aria-label="Phần trăm giảm giá" aria-describedby="basic-addon1" />
+                  </div>
+                </div>
+                <br />
+                <label class="form-label" for="is_stock">Nổi bật</label>
+                <select class="form-control" id="is_stock" name="is_stock">
+                  <option value="true">Có</option>
+                  <option value="false">Không</option>
+                </select>
+                <br />
+                <label class="form-label" for="is_feature">Còn hàng</label>
+                <select class="form-control" id="is_feature" name="is_feature">
+                  <option value="true">Có</option>
+                  <option value="false">Không</option>
+                </select>
+                <br />
+              </div>
+              <button type="submit" class="fix-btn-submit my-2 mb-5 btn btn-success w-auto">Thêm mới sản phẩm</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+  <%- include('./../partial/footer') %>
+</body>
+
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('./../partial/head') %>
+
+<body>
+  <%- include('./../partial/header') %>
+  <main>
+    <div class="d-flex">
+      <div class="row mx-0">
+        <%- include('./../partial/nav', { navLinkActive: 'Sliders' }) %>
+        <!-- CONTENT -->
+        <div class="fix-content">
+          <div class="mx-5">
+            <div class="row">
+              <div class="col">
+                <nav aria-label="breadcrumb">
+                  <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
+                    <li class="breadcrumb-item"><a href="#">Quản lý quảng cáo</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Thêm mới</li>
+                  </ol>
+                </nav>
+                <h3>Thêm mới quảng cáo</h3>
+                <a class="mt-2 btn btn-primary" href="#" role="button">Danh sách</a>
+              </div>
+            </div>
+          </div>
+          <div class="mx-5 mt-3">
+            <form method="post" enctype="multipart/form-data" class="row">
+              <div class="col-6">
+                <div class="form-group">
+                  <label class="form-label" for="image_input">Ảnh quảng cáo</label>
+                  <input type="file" class="form-control" id="image_input" name="image" value="Áo Len Nam Cổ Lọ Cao 5S Fashion Phom Slimfit ALE24001" placeholder="Nhập tên danh mục" required />
+                  <img class="mt-2" src="./assets/img/slider1.webp" id="image_preview" style="display: none;" alt="Ảnh quảng cáo" height="300px" />
+                </div>
+                <br />
+                <label class="form-label" for="public">Public</label>
+                <select class="form-control" id="public" name="public">
+                  <option value="true">Có</option>
+                  <option value="false">Không</option>
+                </select>
+              </div>
+              <div class="col-6"></div>
+              <button type="submit" class="fix-btn-submit my-2 mb-5 btn btn-success w-auto">
+                Thêm mới quảng cáo
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+  <%- include('./../partial/footer') %>
+</body>
+
+</html>

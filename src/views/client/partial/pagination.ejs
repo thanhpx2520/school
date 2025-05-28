@@ -1,0 +1,78 @@
+<!-- Phân trang -->
+<% if (result?.products?.pages?.totalPages>= 1) {
+                  const { pages } = result.products;
+                  %>
+<% const buildQuery=(extraParams={})=> {
+                    const merged = { ...result.query, ...extraParams };
+                    const query = Object.entries(merged)
+                    .filter(([key, val]) => val != null && val !== '')
+                    .map(([key, val]) => {
+                    if (Array.isArray(val)) {
+                    return val.map(v => `${key}=${encodeURIComponent(v)}`).join('&');
+                    }
+                    return `${key}=${encodeURIComponent(val)}`;
+                    })
+                    .join('&');
+                    return '?' + query;
+                    };
+                    %>
+
+<div class="container d-flex justify-content-end">
+  <nav aria-label="Page navigation">
+    <ul class="pagination">
+      <% if (pages?.hasPrev) { %>
+      <li class="page-item">
+        <a class="page-link" href="<%= buildQuery({ page: pages.prev }) %>">&laquo;</a>
+      </li>
+      <% } else { %>
+      <li class="page-item disabled"><span class="page-link">&laquo;</span></li>
+      <% } %>
+
+      <% if (pages.totalPages> 5) { %>
+      <li class="page-item <%= pages.currentPage === 1 ? 'active' : '' %>">
+        <a class="page-link" href="<%= buildQuery({ page: 1 }) %>">1</a>
+      </li>
+
+      <% if (pages.currentPage> 3) { %>
+      <li class="page-item disabled"><span class="page-link">...</span></li>
+      <% } %>
+
+      <% for (let i=Math.max(2, pages.currentPage - 1); i <=Math.min(pages.totalPages -
+                                        1, pages.currentPage + 1); i++) { %>
+      <li class="page-item <%= i === pages.currentPage ? 'active' : '' %>">
+        <a class="page-link" href="<%= buildQuery({ page: i }) %>">
+          <%= i %>
+        </a>
+      </li>
+      <% } %>
+
+      <% if (pages.currentPage < pages.totalPages - 2) { %>
+      <li class="page-item disabled"><span class="page-link">...</span></li>
+      <% } %>
+
+      <li class="page-item <%= pages.currentPage === pages.totalPages ? 'active' : '' %>">
+        <a class="page-link" href="<%= buildQuery({ page: pages.totalPages }) %>">
+          <%= pages.totalPages %>
+        </a>
+      </li>
+      <% } else { %>
+      <% for (let i=1; i <=pages.totalPages; i++) { %>
+      <li class="page-item <%= i === pages.currentPage ? 'active' : '' %>">
+        <a class="page-link" href="<%= buildQuery({ page: i }) %>">
+          <%= i %>
+        </a>
+      </li>
+      <% } %>
+      <% } %>
+
+      <% if (pages?.hasNext) { %>
+      <li class="page-item">
+        <a class="page-link" href="<%= buildQuery({ page: pages.next }) %>">&raquo;</a>
+      </li>
+      <% } else { %>
+      <li class="page-item disabled"><span class="page-link">&raquo;</span></li>
+      <% } %>
+    </ul>
+  </nav>
+</div>
+<% } %>
