@@ -37,7 +37,7 @@ async function bootstrap() {
   await app.register(fastifyCookie);
   await app.register(fastifyMultipart);
 
-  const port = configService.get<string>('app.port');
+  const port = configService.get<string>('app.port') || 4000;
   if (port) {
     await app.listen(port, () => {
       logger.log(`>>> Server running on port: ${port}`);
