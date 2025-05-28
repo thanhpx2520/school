@@ -25,7 +25,7 @@ async function bootstrap() {
     root: path.join(__dirname, 'public'),
     prefix: '/static/',
     cacheControl: true,
-    maxAge: '10m',
+    maxAge: '30m',
   });
 
   await app.register(fastifyView, {
